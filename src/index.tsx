@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
+import 'css/index.css'
 
 // Your top level component
-import App from './App'
+import a from './App'
+
+const { App } = a
 
 // Export your top level component as JSX (for static rendering)
 export default App
