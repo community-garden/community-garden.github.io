@@ -6,7 +6,7 @@ import 'css/index.css'
 // Your top level component
 import a from './App'
 
-const { App } = a
+const { HomepageLayout: App } = a
 
 // Export your top level component as JSX (for static rendering)
 export default App

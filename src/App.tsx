@@ -1,361 +1,227 @@
-import _ from 'lodash'
-import React, {Component, CSSProperties} from "react";
-import { Root, Routes, addPrefetchExcludes } from 'react-static'
-import { Link, Router } from '@reach/router'
+import React, {Component} from "react";
+import {Root, Routes, addPrefetchExcludes} from 'react-static'
+import {Link, Router} from '@reach/router'
 //import FancyDiv from 'components/FancyDiv'
 import Dynamic from 'containers/Dynamic'
 import './App.css'
-
-import 'semantic-ui-css/semantic.min.css'
-
+import {createMedia} from '@artsy/fresnel'
 import {
+    Button,
     Container,
     Divider,
-    Dropdown,
     Grid,
     Header,
     Icon,
     Image,
     List,
     Menu,
-    Segment,
-    Visibility
-} from "semantic-ui-react";
+    Segment, SemanticICONS,
+    Sidebar,
+    Visibility,
+} from 'semantic-ui-react'
+
+import 'semantic-ui-css/semantic.min.css'
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(['dynamic'])
 
-function App2() {
-  return (
-    <Root>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/blog">Blog</Link>
-        <Link to="/dynamic">Dynamic</Link>
-      </nav>
-      <div className="content">
-        <div>
-          <React.Suspense fallback={<em>Loading...</em>}>
-            <Router>
-              <Dynamic path="dynamic" />
-              <Routes path="*" />
-            </Router>
-          </React.Suspense>
-        </div>
-      </div>
-    </Root>
-  )
-}
+/* eslint-disable max-classes-per-file */
+/* eslint-disable react/no-multi-comp */
 
 
-const menuStyle = {
-    border: "none",
-    borderRadius: 0,
-    boxShadow: "none",
-    marginBottom: "1em",
-    marginTop: "4em",
-    transition: "box-shadow 0.5s ease, padding 0.5s ease"
-};
+const {MediaContextProvider, Media} = createMedia({
+    breakpoints: {
+        mobile: 0,
+        tablet: 768,
+        computer: 1024,
+    },
+})
 
-const fixedMenuStyle = {
-    backgroundColor: "#fff",
-    border: "1px solid #ddd",
-    boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)"
-};
+/* Heads up!
+ * HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled
+ * components for such things.
+ */
+const HomepageHeading: React.FC<any> = ({mobile}) => (
+    <Container text>
+        <Header
+            as='h1'
+            content='Community Garden App'
+            inverted
+            style={{
+                fontSize: mobile ? '2em' : '4em',
+                fontWeight: 'normal',
+                marginBottom: 0,
+                marginTop: mobile ? '1.5em' : '3em',
+            }}
+        />
+        <Header
+            as='h2'
+            content='organize, manage, connect to local gardening initiatives'
+            inverted
+            style={{
+                fontSize: mobile ? '1.5em' : '1.7em',
+                fontWeight: 'normal',
+                marginTop: mobile ? '0.5em' : '1.5em',
+            }}
+        />
+        <Button style={{display: 'none'}} primary size='huge'>
+            Get the App
+            <Icon name={'right arrow' as SemanticICONS}/>
+        </Button>
+    </Container>
+)
 
-const overlayStyle = {
-    float: "left",
-    margin: "0em 3em 1em 0em"
-};
+/* Heads up!
+ * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
+ * It can be more complicated, but you can create really flexible markup.
+ */
+class DesktopContainer extends Component<any, any> {
+    state = { fixed: undefined}
 
-const fixedOverlayStyle = {
-    ...overlayStyle,
-    position: "fixed",
-    top: "80px",
-    zIndex: 10
-};
-
-const overlayMenuStyle = {
-    position: "relative",
-    left: 0,
-    transition: "left 0.5s ease"
-};
-
-const fixedOverlayMenuStyle = {
-    ...overlayMenuStyle,
-    left: "800px"
-};
-
-const LeftImage = () => (
-    <Image
-        floated="left"
-        size="medium"
-        src="/static/images/wireframe/square-image.png"
-        style={{ margin: "2em 2em 2em -4em" }}
-    />
-);
-
-const RightImage = () => (
-    <Image
-        floated="right"
-        size="medium"
-        src="/static/images/wireframe/square-image.png"
-        style={{ margin: "2em -4em 2em 2em" }}
-    />
-);
-
-const Paragraph = () => (
-    <p>
-        {[
-            "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ",
-            "tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas ",
-            "semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ",
-            "ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean ",
-            "fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. ",
-            "Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor ",
-            "neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, ",
-            "accumsan porttitor, facilisis luctus, metus"
-        ].join("")}
-    </p>
-);
-
-type StickyLayoutState = {
-    menuFixed: Boolean,
-    overlayFixed: Boolean,
-    overlayRect?: Object
-}
-
-class StickyLayout extends Component<any, StickyLayoutState> {
-    state: StickyLayoutState = {
-        menuFixed: false,
-        overlayFixed: false
-    };
-
-    handleOverlayRef = c => {
-        const { overlayRect } = this.state;
-
-        if (!overlayRect) {
-            this.setState({
-                overlayRect: _.pick(c.getBoundingClientRect(), "height", "width")
-            });
-        }
-    };
-
-    stickOverlay = () => this.setState({ overlayFixed: true });
-
-    stickTopMenu = () => this.setState({ menuFixed: true });
-
-    unStickOverlay = () => this.setState({ overlayFixed: false });
-
-    unStickTopMenu = () => this.setState({ menuFixed: false });
+    hideFixedMenu = () => this.setState({fixed: false})
+    showFixedMenu = () => this.setState({fixed: true})
 
     render() {
-        const { menuFixed, overlayFixed, overlayRect } = this.state;
+        const {children} = this.props
+        const {fixed} = this.state
 
         return (
-            <Root>
-                <div>
-                    {/* Heads up, style below isn't necessary for correct work of example, simply our docs defines other
-            background color.
-          */}
-                    <style>{`
-          html, body {
-            background: #fff;
-          }
-        `}</style>
-
-                    <Container text style={{marginTop: "2em"}}>
-                        <Header as="h1">Sticky Example</Header>
-                        <p>
-                            This example shows how to use lazy loaded images, a sticky menu, and
-                            a simple text container
-                        </p>
-                    </Container>
-
-                    {/* Attaching the top menu is a simple operation, we only switch `fixed` prop and add another style if it has
-            gone beyond the scope of visibility
-          */}
-                    <Visibility
-                        onBottomPassed={this.stickTopMenu}
-                        onBottomVisible={this.unStickTopMenu}
-                        once={false}
-                    >
-                        <Menu
-                            borderless
-                            fixed={"top"}
-                            style={menuFixed ? fixedMenuStyle : menuStyle}
-                        >
-                            <Container text>
-                                <Menu.Item>
-                                    <Image size="mini" src="/static/images/logo.png"/>
-                                </Menu.Item>
-                                <Menu.Item header><Link to='/'>Community Garden App</Link></Menu.Item>
-                                <Menu.Item as="a"><Link to='/blog'>Blog</Link></Menu.Item>
-                                <Menu.Item as="a"><Link to='/articles'>Articles</Link></Menu.Item>
-
-                                <Menu.Menu position="right">
-                                    <Dropdown text="Dropdown" pointing className="link item">
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item>List Item</Dropdown.Item>
-                                            <Dropdown.Item>List Item</Dropdown.Item>
-                                            <Dropdown.Divider/>
-                                            <Dropdown.Header>Header Item</Dropdown.Header>
-                                            <Dropdown.Item>
-                                                <i className="dropdown icon"/>
-                                                <span className="text">Submenu</span>
-                                                <Dropdown.Menu>
-                                                    <Dropdown.Item>List Item</Dropdown.Item>
-                                                    <Dropdown.Item>List Item</Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item>List Item</Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </Menu.Menu>
-                            </Container>
-                        </Menu>
-                    </Visibility>
-
-                    <Container text>
-                        {_.times(3, i => (
-                            <Paragraph key={i}/>
-                        ))}
-
-                        {/* Example with overlay menu is more complex, SUI simply clones all elements inside, but we should use a
-              different approach.
-
-              An empty Visibility element controls the need to change the fixing of element below, it also uses height
-              and width params received from its ref for correct display.
-            */}
-                        <Visibility
-                            offset={80}
-                            once={false}
-                            onTopPassed={this.stickOverlay}
-                            onTopVisible={this.unStickOverlay}
-                            style={overlayFixed ? {...overlayStyle, ...overlayRect} : {}}
-                        />
-
-                        <div
-                            ref={this.handleOverlayRef}
-                            style={(overlayFixed ? fixedOverlayStyle : overlayStyle) as CSSProperties}
-                        >
-                            <Menu
-                                icon="labeled"
-                                style={overlayFixed ? fixedOverlayMenuStyle : overlayMenuStyle}
-                                vertical
-                            >
-                                <Menu.Item>
-                                    <Icon name="twitter"/>
-                                    Twitter
-                                </Menu.Item>
-
-                                <Menu.Item>
-                                    <Icon name="facebook"/>
-                                    Share
-                                </Menu.Item>
-
-                                <Menu.Item>
-                                    <Icon name="mail"/>
-                                    Email
-                                </Menu.Item>
-                            </Menu>
-                        </div>
-
-                        {_.times(3, i => (
-                            <Paragraph key={i}/>
-                        ))}
-                        <LeftImage/>
-
-                        <Paragraph/>
-                        <RightImage/>
-
-                        {_.times(4, i => (
-                            <Paragraph key={i}/>
-                        ))}
-                        <LeftImage/>
-
-                        <Paragraph/>
-                        <RightImage/>
-
-                        {_.times(2, i => (
-                            <Paragraph key={i}/>
-                        ))}
-                    </Container>
-
+            <Media greaterThan='mobile'>
+                <Visibility
+                    once={false}
+                    onBottomPassed={this.showFixedMenu}
+                    onBottomPassedReverse={this.hideFixedMenu}
+                >
                     <Segment
                         inverted
-                        style={{margin: "5em 0em 0em", padding: "5em 0em"}}
+                        textAlign='center'
+                        style={{
+                            backgroundImage: 'url("/jtilsch_06_2021_garden_q60.JPG")',
+                            backgroundSize: 'cover',
+                            minHeight: 700, padding: '1em 0em'}}
                         vertical
                     >
-                        <Container textAlign="center">
-                            <React.Suspense fallback={<em>Loading...</em>}>
-                                <Router>
-                                    <Dynamic path="dynamic" />
-                                    <Routes path="*" />
-                                </Router>
-                            </React.Suspense>
-                            <Divider />
-                            <Grid columns={4} divided stackable inverted>
-                                <Grid.Row>
-                                    <Grid.Column>
-                                        <Header inverted as="h4" content="Group 1"/>
-                                        <List link inverted>
-                                            <List.Item as="a">Link One</List.Item>
-                                            <List.Item as="a">Link Two</List.Item>
-                                            <List.Item as="a">Link Three</List.Item>
-                                            <List.Item as="a">Link Four</List.Item>
-                                        </List>
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <Header inverted as="h4" content="Group 2"/>
-                                        <List link inverted>
-                                            <List.Item as="a">Link One</List.Item>
-                                            <List.Item as="a">Link Two</List.Item>
-                                            <List.Item as="a">Link Three</List.Item>
-                                            <List.Item as="a">Link Four</List.Item>
-                                        </List>
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <Header inverted as="h4" content="Group 3"/>
-                                        <List link inverted>
-                                            <List.Item as="a">Link One</List.Item>
-                                            <List.Item as="a">Link Two</List.Item>
-                                            <List.Item as="a">Link Three</List.Item>
-                                            <List.Item as="a">Link Four</List.Item>
-                                        </List>
-                                    </Grid.Column>
-                                    <Grid.Column>
-                                        <Header inverted as="h4" content="Footer Header"/>
-                                        <p>
-                                            Extra space for a call to action inside the footer that
-                                            could help re-engage users.
-                                        </p>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                            <Divider inverted section/>
-                            <Image src="/static/images/logo.png" centered size="mini"/>
-                            <List horizontal inverted divided link size="small">
-                                <List.Item as="a" href="#root">
-                                    Site Map
-                                </List.Item>
-                                <List.Item as="a" href="#root">
-                                    Contact Us
-                                </List.Item>
-                                <List.Item as="a" href="#root">
-                                    Terms and Conditions
-                                </List.Item>
-                                <List.Item as="a" href="#root">
-                                    Privacy Policy
-                                </List.Item>
-                            </List>
-                        </Container>
+                        <Menu
+                            fixed={fixed ? 'top' : null}
+                            inverted={!fixed}
+                            pointing={!fixed}
+                            secondary={!fixed}
+                            size='large'
+                        >
+                            <Container>
+                                <Menu.Item as={Link} to='/' active>
+                                    Project
+                                </Menu.Item>
+                                <Menu.Item as={Link} to='/blog'>Blog</Menu.Item>
+                                <Menu.Item as={Link} to='/milestones'>Milestones</Menu.Item>
+                                <Menu.Item as={Link} to='/team'>Team</Menu.Item>
+                            </Container>
+                        </Menu>
+                        <HomepageHeading/>
                     </Segment>
-                </div>
-            </Root>
-        );
+                </Visibility>
+
+                {children}
+            </Media>
+        )
     }
 }
 
-export default  { App: App2, StickyLayout };
+class MobileContainer extends Component<any, any> {
+    state = { sidebarOpened: undefined}
+
+    handleSidebarHide = () => this.setState({sidebarOpened: false})
+
+    handleToggle = () => this.setState({sidebarOpened: true})
+
+    render() {
+        const {children} = this.props
+        const {sidebarOpened} = this.state
+
+        // as={Sidebar.Pushable}
+        return (
+            <Media  at='mobile'>
+                <Sidebar.Pushable>
+                    <Sidebar
+                        as={Menu}
+                        animation='overlay'
+                        inverted
+                        onHide={this.handleSidebarHide}
+                        vertical
+                        visible={sidebarOpened}
+                    >
+                        <Menu.Item as={Link} to='/' active>
+                            Project
+                        </Menu.Item>
+                        <Menu.Item as={Link} to='/blog'>Blog</Menu.Item>
+                        <Menu.Item as={Link} to='/milestones'>Milestones</Menu.Item>
+                        <Menu.Item as={Link} to='/team'>Team</Menu.Item>
+                        <Menu.Item as='a' active>
+                            Project
+                        </Menu.Item>
+                    </Sidebar>
+
+                    <Sidebar.Pusher dimmed={sidebarOpened}>
+                        <Segment
+                            inverted
+                            textAlign='center'
+                            style={{
+
+                                backgroundImage: 'url("/jtilsch_06_2021_garden_q60.JPG")',
+                                backgroundSize: 'cover',
+                                minHeight: 350, padding: '1em 0em'}}
+                            vertical
+                        >
+                            <Container>
+                                <Menu inverted pointing secondary size='large'>
+                                    <Menu.Item onClick={this.handleToggle}>
+                                        <Icon name='sidebar'/>
+                                    </Menu.Item>
+                                    <Menu.Item position='right'>
+                                    </Menu.Item>
+                                </Menu>
+                            </Container>
+                            <HomepageHeading mobile/>
+                        </Segment>
+
+                        {children}
+                    </Sidebar.Pusher>
+                </Sidebar.Pushable>
+            </Media>
+        )
+    }
+}
+
+const ResponsiveContainer: React.FC<any> = ({children}) => (
+    /* Heads up!
+     * For large applications it may not be best option to put all page into these containers at
+     * they will be rendered twice for SSR.
+     */
+    <MediaContextProvider>
+        <DesktopContainer>{children}</DesktopContainer>
+        <MobileContainer>{children}</MobileContainer>
+    </MediaContextProvider>
+)
+
+const HomepageLayout: React.FC<any> = () => (
+    <Root>
+        <ResponsiveContainer>
+
+            <Segment style={{padding: '8em 0em'}} vertical>
+                <Container text>
+                    <React.Suspense fallback={<em>Loading...</em>}>
+                        <Router>
+                            <Dynamic path="dynamic"/>
+                            <Routes path="*"/>
+                        </Router>
+                    </React.Suspense>
+                </Container>
+            </Segment>
+
+
+        </ResponsiveContainer>
+    </Root>
+)
+
+
+export default { HomepageLayout};
