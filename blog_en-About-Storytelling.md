@@ -1,4 +1,4 @@
-# About Storytelling
+# Starting Pergola
 
 ## Where do we come from?
 The 2020th 8th round of the Prototype Fund brought up this group of five people, engaged into the creation of a tool for managing and organizing a community garden. As we are already involved in urban gardening projects ourselves, we enjoy two main benefits: Firstly, of course, our own everyday challenges, experiences and knowledge about community gardening. Secondly, we can take advantage of an open-minded network of volunteers and passionate gardeners, who will give us insights and guidance on our mission to create a tool, that makes community gardening an even more enjoyable thing to do. 
