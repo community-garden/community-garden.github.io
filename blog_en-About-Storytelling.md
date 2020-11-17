@@ -9,7 +9,7 @@ The 2020th 8th round of the Prototype Fund brought up this group of five people,
 Lets be honest: Even gardening all by yourself isn‘t neccessarily an easy thing to do. Now imagine a whole group of individuals trying their best to create a green, fruitful and peaceful place right in the middle of the urban desert. Yup, you guessed it, this offers the chance to become a real project. 
 Of course, there is some classic community gardening going on. This includes caring about some shared spaces, planting, weeding, watering and – if everything works out as planned – harvesting. Besides, people come to share their knowledge about planting, constructing, sustainability … or sometimes just to hang out and relax. 
 
-![Questions](images/questions-gif.gif)
+![Questions](https://github.com/community-garden/community-garden.github.io/wiki/blog_en-About-Storytelling/images/questions-gif.gif)
 
 
 „When was this biodiversity workshop again? Did someone already water the tomatoes today? This pumpkin looks great and ripe, but am I the right one to pick it and take it home?“
