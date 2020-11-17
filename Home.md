@@ -1,6 +1,4 @@
-Welcome to the community-garden.github.io wiki!
-
-# Pergola
+# Our mission
 
 The 2020th 8th round of the prototype fund brought up this group of people, engaged into the
 creation of a tool for managing and organizing a community garden. We are a group  of
@@ -10,8 +8,12 @@ the challenges around maintaining an open community of volunteers and passionate
 Our mission is to make it easier for those groups and cooperatives to organize themselves, connect to other
 initiatives or maybe start a new project from scratch with an elaborate tool on their side to fulfil the vision.
 
+# Pergola
 
-Some of out guidlines:
+Our main application is called _Pergola_. A hybrid App, which can be build for various platforms and has a lightweight
+backend.
+
+# Some of our guidelines
 
 - open source, open data
 - data transparency
