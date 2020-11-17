@@ -21,7 +21,7 @@ So this is how we found our mission: With an elaborate tool on their side, we wa
 
 As we revealed before, nearly everyone of our project group identifies directly with the people that should benefit from our prototype solution in the future. So of course, we brought up some inital ideas of our own! So at the beginning, there was a list of features, that would make at least a handful of gardeners really happy, e.g. a digital wating plan, an optimized tool for events and tasks to be done or even an interactive map, that uses real time sensor data and informs us about things going on in the garden.
 
-![survey](https://github.com/community-garden/community-garden.github.io/wiki/images/Umfrage___englisch_2x)
+![survey](https://github.com/community-garden/community-garden.github.io/wiki/images/Umfrage___englisch_2x.png)
 
 
 Anyway, we considered the existing data base at that point kind of subjective. How representative could the few of us really be? How do our problems match those of other gardeners? What kind of solutions or products might be already in use to tackle those needs? We set up a survey.
