@@ -8,7 +8,6 @@ export default () => {
 
   return (
     <div>
-      <h1>It's blog time.</h1>
       <br />
       All Posts:
       <ul>

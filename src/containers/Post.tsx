@@ -2,6 +2,7 @@ import React from 'react'
 import { useRouteData } from 'react-static'
 import { Link } from '@reach/router'
 import { Post } from '../../types'
+import ReactMarkdown from "react-markdown";
 
 export default () => {
   const { post }: { post: Post } = useRouteData()
@@ -9,8 +10,7 @@ export default () => {
     <div>
       <Link to="/blog/">{'<'} Back</Link>
       <br />
-      <h3>{post.title}</h3>
-      <p>{post.body}</p>
+      <ReactMarkdown children={post.body}/>
     </div>
   )
 }
