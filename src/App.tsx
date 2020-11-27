@@ -6,22 +6,18 @@ import Dynamic from 'containers/Dynamic'
 import './App.css'
 import {createMedia} from '@artsy/fresnel'
 import {
+    Box,
     Button,
     Container,
     Divider,
     Grid,
-    Header,
     Icon,
-    Image,
     List,
-    Menu,
-    Segment, SemanticICONS,
-    Sidebar,
-    Visibility,
-} from 'semantic-ui-react'
-
-import 'semantic-ui-css/semantic.min.css'
-
+    Menu
+} from '@material-ui/core'
+import {
+    ArrowRight
+} from '@material-ui/icons'
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(['dynamic'])
 
@@ -42,31 +38,27 @@ const {MediaContextProvider, Media} = createMedia({
  * components for such things.
  */
 const HomepageHeading: React.FC<any> = ({mobile}) => (
-    <Container text>
-        <Header
-            as='h1'
-            content='Community Garden App'
-            inverted
+    <Container>
+        <Box
+            component='h1'
             style={{
                 fontSize: mobile ? '2em' : '4em',
                 fontWeight: 'normal',
                 marginBottom: 0,
                 marginTop: mobile ? '1.5em' : '3em',
             }}
-        />
-        <Header
-            as='h2'
-            content='organize, manage, connect to local gardening initiatives'
-            inverted
+        >Community Garden App</Box>
+        <Box
+            component='h2'
             style={{
                 fontSize: mobile ? '1.5em' : '1.7em',
                 fontWeight: 'normal',
                 marginTop: mobile ? '0.5em' : '1.5em',
             }}
-        />
-        <Button style={{display: 'none'}} primary size='huge'>
+        >organize, manage, connect to local gardening initiatives!</Box>
+        <Button color="primary" size="large">
             Get the App
-            <Icon name={'right arrow' as SemanticICONS}/>
+            <ArrowRight />
         </Button>
     </Container>
 )
@@ -87,7 +79,7 @@ class DesktopContainer extends Component<any, any> {
 
         return (
             <Media greaterThan='mobile'>
-                <Visibility
+{/*                 <Visibility
                     once={false}
                     onBottomPassed={this.showFixedMenu}
                     onBottomPassedReverse={this.hideFixedMenu}
@@ -119,8 +111,8 @@ class DesktopContainer extends Component<any, any> {
                         </Menu>
                         <HomepageHeading/>
                     </Segment>
-                </Visibility>
-
+                </Visibility> */}
+                <HomepageHeading/>
                 {children}
             </Media>
         )
@@ -141,7 +133,7 @@ class MobileContainer extends Component<any, any> {
         // as={Sidebar.Pushable}
         return (
             <Media  at='mobile'>
-                <Sidebar.Pushable>
+        {/*         <Sidebar.Pushable>
                     <Sidebar
                         as={Menu}
                         animation='overlay'
@@ -186,7 +178,9 @@ class MobileContainer extends Component<any, any> {
 
                         {children}
                     </Sidebar.Pusher>
-                </Sidebar.Pushable>
+                </Sidebar.Pushable> */}
+                <HomepageHeading mobile/>
+
             </Media>
         )
     }
@@ -207,7 +201,7 @@ const HomepageLayout: React.FC<any> = () => (
     <Root>
         <ResponsiveContainer>
 
-            <Segment style={{padding: '8em 0em'}} vertical>
+{/*             <Segment style={{padding: '8em 0em'}} vertical>
                 <Container text>
                     <React.Suspense fallback={<em>Loading...</em>}>
                         <Router>
@@ -216,7 +210,7 @@ const HomepageLayout: React.FC<any> = () => (
                         </Router>
                     </React.Suspense>
                 </Container>
-            </Segment>
+            </Segment> */}
 
 
         </ResponsiveContainer>
