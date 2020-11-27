@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 export default () => {
   const { post }: { post: Post } = useRouteData()
   return (
-    <div>
+    <div className='blog'>
       <Link to="/blog/">{'<'} Back</Link>
       <br />
       <ReactMarkdown children={post.body}/>

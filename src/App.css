@@ -47,3 +47,6 @@ blockquote cite:before {
 blockquote cite:after {
   content: "»";
 }
+.blog img {
+    max-width: 100%
+}
