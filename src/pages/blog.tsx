@@ -8,12 +8,11 @@ export default () => {
 
   return (
     <div>
-      <br />
-      All Posts:
-      <ul>
+      <h1>Recent Posts</h1>
+      <ul style={{padding: 0}}>
         {posts.map(post => (
-          <li key={post.id}>
-            <Link to={`/blog/post/${post.id}/`}>{post.title}</Link>
+          <li key={post.id} style={{listStyle:'none', fontSize: '1.5rem'}}>
+            <Link to={`/blog/post/${post.id}/`}><i className="icon angle right"></i> {post.body.match("# (.*)\n")[1]}</Link>
           </li>
         ))}
       </ul>
