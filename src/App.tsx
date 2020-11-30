@@ -122,6 +122,11 @@ class DesktopContainer extends Component<any, any> {
                 </Visibility>
 
                 {children}
+
+                <Container text>
+                    {/* TODO: German version if content is german */}
+                    <a href="https://www.bmbf.de/en/index.html" target="_blank"><img className="ui medium image" src="/BMBF-sponsered-by_en.jpg" /></a>
+                </Container>
             </Media>
         )
     }
