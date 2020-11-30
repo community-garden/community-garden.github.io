@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { useRouteData } from 'react-static'
 import { Link } from '@reach/router'
 import { Post } from 'types'
@@ -8,6 +9,9 @@ export default () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Pergola | Recent Posts</title>
+      </Helmet>
       <h1>Recent Posts</h1>
       <ul style={{padding: 0}}>
         {posts.map(post => (
