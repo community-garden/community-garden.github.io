@@ -48,10 +48,10 @@ const HomepageHeading: React.FC<any> = ({mobile}) => (
             content='Community Garden App'
             inverted
             style={{
-                fontSize: mobile ? '2em' : '4em',
+                fontSize: '3rem',
                 fontWeight: 'normal',
                 marginBottom: 0,
-                marginTop: mobile ? '1.5em' : '3em',
+                marginTop: mobile ? '1.5rem' : '2rem',
             }}
         />
         <Header
@@ -59,9 +59,9 @@ const HomepageHeading: React.FC<any> = ({mobile}) => (
             content='organize, manage, connect to local gardening initiatives'
             inverted
             style={{
-                fontSize: mobile ? '1.5em' : '1.7em',
+                fontSize: mobile ? '1.5rem' : '1.7rem',
                 fontWeight: 'normal',
-                marginTop: mobile ? '0.5em' : '1.5em',
+                marginTop: mobile ? '.5rem' : '1.5rem',
             }}
         />
         <Button style={{display: 'none'}} primary size='huge'>
@@ -98,7 +98,8 @@ class DesktopContainer extends Component<any, any> {
                         style={{
                             backgroundImage: 'url("/jtilsch_06_2021_garden_q60.JPG")',
                             backgroundSize: 'cover',
-                            minHeight: 700, padding: '1em 0em'}}
+                            backgroundPosition: 'top -100px center',
+                            padding: '1rem 0 3rem'}}
                         vertical
                     >
                         <Menu
@@ -174,7 +175,8 @@ class MobileContainer extends Component<any, any> {
 
                                 backgroundImage: 'url("/jtilsch_06_2021_garden_q60.JPG")',
                                 backgroundSize: 'cover',
-                                minHeight: 350, padding: '1em 0em'}}
+                                backgroundPosition: 'top center',
+                                padding: '1rem 0 2rem'}}
                             vertical
                         >
                             <Container>
@@ -212,7 +214,7 @@ const HomepageLayout: React.FC<any> = () => (
     <Root>
         <ResponsiveContainer>
 
-            <Segment style={{padding: '8em 0em'}} vertical>
+            <Segment style={{padding: '4rem 0'}} vertical>
                 <Container text>
                     <React.Suspense fallback={<em>Loading...</em>}>
                         <Router>
