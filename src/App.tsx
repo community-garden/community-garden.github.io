@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { Helmet } from 'react-helmet'
 import {Root, Routes, addPrefetchExcludes} from 'react-static'
 import {Link, Router} from '@reach/router'
 //import FancyDiv from 'components/FancyDiv'
@@ -212,8 +213,11 @@ const ResponsiveContainer: React.FC<any> = ({children}) => (
 
 const HomepageLayout: React.FC<any> = () => (
     <Root>
+        <Helmet>
+            <title>Pergola | Community Garden App</title>
+        </Helmet>
         <ResponsiveContainer>
-
+            
             <Segment style={{padding: '4rem 0'}} vertical>
                 <Container text>
                     <React.Suspense fallback={<em>Loading...</em>}>
