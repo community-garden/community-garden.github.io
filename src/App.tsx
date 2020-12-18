@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Helmet } from 'react-helmet'
 import {Root, Routes, addPrefetchExcludes} from 'react-static'
-import {Link, Router} from '@reach/router'
+import {Link, Match, Router} from '@reach/router'
 //import FancyDiv from 'components/FancyDiv'
 import Dynamic from 'containers/Dynamic'
 import './App.css'
@@ -72,6 +72,14 @@ const HomepageHeading: React.FC<any> = ({mobile}) => (
     </Container>
 )
 
+const MenuItemRouted = ({ to, children, ...menuItemProps }) => (
+    <Match path={`${to}`}>
+        { props => (
+            <Menu.Item to={to} active={!!props.match} {...menuItemProps}>{children}</Menu.Item>
+        )}
+    </Match>
+)
+
 /* Heads up!
  * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
  * It can be more complicated, but you can create really flexible markup.
@@ -86,7 +94,8 @@ class DesktopContainer extends Component<any, any> {
         const {children} = this.props
         const {fixed} = this.state
 
-        return (
+
+      return (
             <Media greaterThan='mobile'>
                 <Visibility
                     once={false}
@@ -111,12 +120,12 @@ class DesktopContainer extends Component<any, any> {
                             size='large'
                         >
                             <Container>
-                                <Menu.Item as={Link} to='/' active>
+                                <MenuItemRouted as={Link} to='/'>
                                     Project
-                                </Menu.Item>
-                                <Menu.Item as={Link} to='/blog'>Blog</Menu.Item>
-                                <Menu.Item as={Link} to='/milestones'>Milestones</Menu.Item>
-                                <Menu.Item as={Link} to='/team'>Team</Menu.Item>
+                                </MenuItemRouted>
+                                <MenuItemRouted as={Link} to='/blog'>Blog</MenuItemRouted>
+                                <MenuItemRouted as={Link} to='/milestones'>Milestones</MenuItemRouted>
+                                <MenuItemRouted as={Link} to='/team'>Team</MenuItemRouted>
                             </Container>
                         </Menu>
                         <HomepageHeading/>
@@ -157,15 +166,12 @@ class MobileContainer extends Component<any, any> {
                         vertical
                         visible={sidebarOpened}
                     >
-                        <Menu.Item as={Link} to='/' active>
+                        <MenuItemRouted as={Link} to='/'>
                             Project
-                        </Menu.Item>
-                        <Menu.Item as={Link} to='/blog'>Blog</Menu.Item>
-                        <Menu.Item as={Link} to='/milestones'>Milestones</Menu.Item>
-                        <Menu.Item as={Link} to='/team'>Team</Menu.Item>
-                        <Menu.Item as='a' active>
-                            Project
-                        </Menu.Item>
+                        </MenuItemRouted>
+                        <MenuItemRouted as={Link} to='/blog'>Blog</MenuItemRouted>
+                        <MenuItemRouted as={Link} to='/milestones'>Milestones</MenuItemRouted>
+                        <MenuItemRouted as={Link} to='/team'>Team</MenuItemRouted>
                     </Sidebar>
 
                     <Sidebar.Pusher dimmed={sidebarOpened}>
