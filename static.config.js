@@ -4,7 +4,7 @@ import fs from 'fs'
 
 // Typescript support in static.config.js is not yet supported, but is coming in a future update!
 
-const specialPages = [ 'Home.md' ]
+const specialPages = [ 'Home.md', 'Meilensteine.md', 'The-PERGOLA-makers-are.md' ]
 
 const getTitleAndLang = (name) => {
   const titleExtractRegex = /([^(]*)(-\((..)\))?\.md/
@@ -22,7 +22,6 @@ const hashCode = (s) => {
 export default {
   entry: path.join(__dirname, 'src', 'index.tsx'),
   getRoutes: async () => {
-    const homeMD = fs.readFileSync('wiki/Home.md', {encoding: 'utf-8'}).toString()
     const files = fs.readdirSync('wiki')
     const posts = files
       .filter(file => (path.extname(file) === ".md" && !specialPages.includes(path.basename(file)) ))
@@ -55,8 +54,23 @@ export default {
       },
       {
         path: '/',
+        template: 'src/containers/Markdown',
         getData: () => ({
-          homeMD
+          content: fs.readFileSync('wiki/Home.md', {encoding: 'utf-8'}).toString()
+        })
+      },
+      {
+        path: '/milestones',
+        template: 'src/containers/Markdown',
+        getData: () => ({
+          content: fs.readFileSync('wiki/Meilensteine.md', {encoding: 'utf-8'}).toString()
+        })
+      },
+      {
+        path: '/team',
+        template: 'src/containers/HTML',
+        getData: () => ({
+          content: fs.readFileSync('wiki/The-PERGOLA-makers-are.md', {encoding: 'utf-8'}).toString()
         })
       }
     ]
