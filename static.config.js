@@ -4,7 +4,7 @@ import fs from 'fs'
 
 // Typescript support in static.config.js is not yet supported, but is coming in a future update!
 
-const specialPages = [ 'Home.md', 'Meilensteine.md', 'The-PERGOLA-makers-are.md' ]
+const specialPages = [ 'Home.md', 'Milestones.md', 'The-PERGOLA-makers-are.md' ]
 
 const getTitleAndLang = (name) => {
   const titleExtractRegex = /([^(]*)(-\((..)\))?\.md/
@@ -63,14 +63,7 @@ export default {
         path: '/milestones',
         template: 'src/containers/Markdown',
         getData: () => ({
-          content: fs.readFileSync('wiki/Meilensteine.md', {encoding: 'utf-8'}).toString()
-        })
-      },
-      {
-        path: '/team',
-        template: 'src/containers/HTML',
-        getData: () => ({
-          content: fs.readFileSync('wiki/The-PERGOLA-makers-are.md', {encoding: 'utf-8'}).toString()
+          content: fs.readFileSync('wiki/Milestones.md', {encoding: 'utf-8'}).toString()
         })
       }
     ]
