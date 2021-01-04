@@ -4,7 +4,7 @@ import fs from 'fs'
 
 // Typescript support in static.config.js is not yet supported, but is coming in a future update!
 
-const specialPages = [ 'Home.md' ]
+const specialPages = [ 'Home.md', 'The-PERGOLA-makers-are.md' ]
 
 const getTitleAndLang = (name) => {
   const titleExtractRegex = /([^(]*)(-\((..)\))?\.md/
