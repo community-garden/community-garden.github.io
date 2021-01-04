@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{154:function(e,n,t){"use strict";t.r(n);var a=t(0),o=t.n(a),r=t(65);n.default=function(){var e=Object(r.useRouteData)().content;return o.a.createElement("div",{dangerouslySetInnerHTML:{__html:e}})}}}]);
