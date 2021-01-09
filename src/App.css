@@ -50,3 +50,7 @@ blockquote cite:after {
 .blog img {
     max-width: 100%
 }
+
+.footerImage {
+    height: 300px;
+}
