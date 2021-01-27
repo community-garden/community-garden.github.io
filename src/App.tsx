@@ -137,11 +137,11 @@ class DesktopContainer extends Component<any, any> {
 
         <Container text>
           <Grid columns={2} divided={true} centered={true}>
-            {/* TODO: German version if content is german */}
+            {/* TODO: English version if content is english */}
             <Grid.Row>
               <Grid.Column>
                 <Link to="https://www.bmbf.de/en/index.html" target="_blank">
-                  <img className="footerImage" src="/BMBF-sponsered-by_en.jpg"/></Link>
+                  <img className="footerImage" src="/BMBF-sponsered-by_de.jpg"/></Link>
               </Grid.Column>
               <Grid.Column>
                 <Link to="https://prototypefund.de/en/" target="_blank">
